@@ -620,6 +620,24 @@
     padding: 10px;
   }
 
+
+  .lang-btn {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 0.95rem;
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 2px solid var(--yellow);
+    background: transparent;
+    color: var(--yellow);
+    cursor: pointer;
+    transition: all 0.15s;
+    letter-spacing: 0.05em;
+  }
+  .lang-btn:hover {
+    background: var(--yellow);
+    color: var(--dark);
+    transform: rotate(-2deg) scale(1.05);
+  }
 </style>
 </head>
 <body>
@@ -654,31 +672,33 @@
       <circle cx="90" cy="190" r="4" fill="#1a1a1a"/>
     </svg>
 
-    <h1 class="fade-in">かんたんなせかい</h1>
+    <h1 class="fade-in hero-title">かんたんなせかい</h1>
     <div class="hero-sub fade-in">produced by @kantakatsuzaki ✦ welcome!</div>
     <div class="scroll-hint" style="margin-top: 32px;">↓ scroll ↓</div>
   </div>
 </header>
 
 <nav>
-  <a href="#about">about</a>
+  <a href="#about" class="nav-about">about</a>
   <span class="dot-sep">✦</span>
-  <a href="#works">works</a>
+  <a href="#works" class="nav-works">works</a>
   <span class="dot-sep">✦</span>
-  <a href="#stamps">LINE stamp</a>
+  <a href="#stamps" class="nav-stamps">LINE stamp</a>
   <span class="dot-sep">✦</span>
-  <a href="#contact">contact</a>
+  <a href="#contact" class="nav-contact">contact</a>
+  <span class="dot-sep">✦</span>
+  <button class="lang-btn" onclick="toggleLang()" id="langBtn">EN</button>
 </nav>
 
 <!-- ABOUT -->
 <section id="about">
   <div style="text-align:center;">
-    <div class="section-title">about ✦ かんたんなせかいへようこそ！</div>
+    <div class="section-title about-title">about ✦ かんたんなせかいへようこそ！</div>
   </div>
   <div class="about-grid">
     <div class="about-card">
-      <h3>🎨 このせかいについて</h3>
-      <p>
+      <h3 class="about-heading">🎨 このせかいについて</h3>
+      <p class="about-text">
         太い線と明るい色で描かれたキャラクターたちが住む、ちょっとへんてこでかわいい世界。<br><br>
         日常のふとした瞬間や気持ちを、ゆる〜く、でもしっかり描いています。<br><br>
         <strong>Don't use my works for AI training or reposting.</strong>
@@ -696,7 +716,7 @@
 <!-- WORKS -->
 <section id="works">
   <div style="text-align:center;">
-    <div class="section-title">works</div>
+    <div class="section-title works-title">works</div>
   </div>
   <div class="works-marquee-outer">
     <div class="works-marquee-track">
@@ -724,28 +744,28 @@
 <!-- LINE STAMPS -->
 <section id="stamps">
   <div style="text-align:center;">
-    <div class="section-title">LINE stamp ✦ スタンプ</div>
+    <div class="section-title stamps-title">LINE stamp ✦ スタンプ</div>
   </div>
   <div class="stamps-cta">
-    <a href="https://line.me/S/shop/sticker/author/4075250/new?lang=ja&utm_source=gnsh_staut" target="_blank" class="btn btn-primary">LINE STOREで見る →</a>
+    <a href="https://line.me/S/shop/sticker/author/4075250/new?lang=ja&utm_source=gnsh_staut" target="_blank" class="btn btn-primary stamps-btn">LINE STOREで見る →</a>
   </div>
 </section>
 
 <!-- CONTACT -->
 <section id="contact">
   <div style="text-align:center;">
-    <div class="section-title">contact ✦ つながろう</div>
+    <div class="section-title contact-title">contact ✦ つながろう</div>
   </div>
   <div class="contact-wrap">
     <div class="speech-bubble">
-      <p>お仕事のご依頼・お問い合わせは<br>InstagramのDMへお気軽にどうぞ🌟<br>スタンプはLINE STOREで販売中！</p>
+      <p class="contact-text">お仕事のご依頼・お問い合わせは<br>InstagramのDMへお気軽にどうぞ🌟<br>スタンプはLINE STOREで販売中！</p>
     </div>
 
     <div class="sns-links" style="margin-top: 56px;">
-      <a href="https://www.instagram.com/kantan.na.sekai/" target="_blank" class="sns-btn insta">
+      <a href="https://www.instagram.com/kantan.na.sekai/" target="_blank" class="sns-btn insta sns-insta">
         📸 Instagram
       </a>
-      <a href="https://x.com/kantannasekai" target="_blank" class="sns-btn x">
+      <a href="https://x.com/kantannasekai" target="_blank" class="sns-btn x sns-x">
         𝕏 Twitter / X
       </a>
     </div>
@@ -761,6 +781,83 @@
     </div>
   </div>
 </section>
+
+
+<script>
+const translations = {
+  ja: {
+    "hero-title": "かんたんなせかい",
+    "hero-sub": "produced by @kantakatsuzaki ✦ welcome!",
+    "scroll-hint": "↓ scroll ↓",
+    "about-title": "about ✦ かんたんなせかいへようこそ！",
+    "about-heading": "🎨 このせかいについて",
+    "about-text": "太い線と明るい色で描かれたキャラクターたちが住む、ちょっとへんてこでかわいい世界。<br><br>日常のふとした瞬間や気持ちを、ゆる〜く、でもしっかり描いています。<br><br><strong>Don't use my works for AI training or reposting.</strong>",
+    "works-title": "works",
+    "stamps-title": "LINE stamp ✦ スタンプ",
+    "stamps-btn": "LINE STOREで見る →",
+    "contact-title": "contact ✦ つながろう",
+    "contact-text": "お仕事のご依頼・お問い合わせは<br>InstagramのDMへお気軽にどうぞ🌟<br>スタンプはLINE STOREで販売中！",
+    "sns-insta": "📸 Instagram",
+    "sns-x": "𝕏 Twitter / X",
+    "footer-copy": "© 2024 <span>かんたんなせかい</span> — produced by @kantakatsuzaki",
+    "footer-note": "🚫 Don't use my works for AI training or reposting.",
+    "nav-about": "about",
+    "nav-works": "works",
+    "nav-stamps": "LINE stamp",
+    "nav-contact": "contact"
+  },
+  en: {
+    "hero-title": "kantan na sekai",
+    "hero-sub": "produced by @kantakatsuzaki ✦ welcome!",
+    "scroll-hint": "↓ scroll ↓",
+    "about-title": "about ✦ welcome to kantan na sekai!",
+    "about-heading": "🎨 about this world",
+    "about-text": "A quirky and cute world filled with characters drawn with bold lines and bright colors.<br><br>Everyday moments and feelings, illustrated in a loose but heartfelt style.<br><br><strong>Don't use my works for AI training or reposting.</strong>",
+    "works-title": "works",
+    "stamps-title": "LINE stamp",
+    "stamps-btn": "View on LINE STORE →",
+    "contact-title": "contact ✦ get in touch",
+    "contact-text": "For work inquiries & questions,<br>feel free to DM on Instagram🌟<br>Stickers available on LINE STORE!",
+    "sns-insta": "📸 Instagram",
+    "sns-x": "𝕏 Twitter / X",
+    "footer-copy": "© 2024 <span>kantan na sekai</span> — produced by @kantakatsuzaki",
+    "footer-note": "🚫 Don't use my works for AI training or reposting.",
+    "nav-about": "about",
+    "nav-works": "works",
+    "nav-stamps": "LINE stamp",
+    "nav-contact": "contact"
+  }
+};
+
+let currentLang = "ja";
+
+function toggleLang() {
+  currentLang = currentLang === "ja" ? "en" : "ja";
+  const t = translations[currentLang];
+  const btn = document.getElementById("langBtn");
+  btn.textContent = currentLang === "ja" ? "EN" : "JA";
+
+  document.querySelector(".hero-title").innerHTML = t["hero-title"];
+  document.querySelector(".hero-sub").textContent = t["hero-sub"];
+  document.querySelector(".scroll-hint").textContent = t["scroll-hint"];
+  document.querySelector(".about-title").textContent = t["about-title"];
+  document.querySelector(".about-heading").textContent = t["about-heading"];
+  document.querySelector(".about-text").innerHTML = t["about-text"];
+  document.querySelector(".works-title").textContent = t["works-title"];
+  document.querySelector(".stamps-title").textContent = t["stamps-title"];
+  document.querySelector(".stamps-btn").textContent = t["stamps-btn"];
+  document.querySelector(".contact-title").textContent = t["contact-title"];
+  document.querySelector(".contact-text").innerHTML = t["contact-text"];
+  document.querySelector(".sns-insta").textContent = t["sns-insta"];
+  document.querySelector(".sns-x").textContent = t["sns-x"];
+  document.querySelector(".footer-copy").innerHTML = t["footer-copy"];
+  document.querySelector(".footer-note").textContent = t["footer-note"];
+  document.querySelector(".nav-about").textContent = t["nav-about"];
+  document.querySelector(".nav-works").textContent = t["nav-works"];
+  document.querySelector(".nav-stamps").textContent = t["nav-stamps"];
+  document.querySelector(".nav-contact").textContent = t["nav-contact"];
+}
+</script>
 
 <script>
   // Intersection Observer for scroll-reveal
@@ -790,8 +887,8 @@
 </script>
 
 <footer>
-  <p>© 2024 <span>かんたんなせかい</span> — produced by @kantakatsuzaki</p>
-  <p style="margin-top:6px; font-size:0.75rem; opacity:0.6;">🚫 Don't use my works for AI training or reposting.</p>
+  <p class="footer-copy">© 2024 <span>かんたんなせかい</span> — produced by @kantakatsuzaki</p>
+  <p class="footer-note" style="margin-top:6px; font-size:0.75rem; opacity:0.6;">🚫 Don't use my works for AI training or reposting.</p>
 </footer>
 </body>
 </html>

@@ -578,10 +578,14 @@
 
   /* ===== WORKS MARQUEE ===== */
   .works-marquee-outer {
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
     padding: 20px 0;
     cursor: grab;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
+  .works-marquee-outer::-webkit-scrollbar { display: none; }
   .works-marquee-outer:active { cursor: grabbing; }
 
   .works-marquee-track {
@@ -590,8 +594,9 @@
     align-items: center;
     width: max-content;
     animation: works-scroll 30s linear infinite;
+    transition: none;
   }
-  .works-marquee-track:hover { animation-play-state: paused; }
+  .works-marquee-track.paused { animation-play-state: paused; }
 
   @keyframes works-scroll {
     0%   { transform: translateX(0); }
@@ -860,6 +865,70 @@ function toggleLang() {
 </script>
 
 <script>
+
+  // Works マーキー：自動スクロール＋ドラッグ操作
+  const marqueeOuter = document.querySelector('.works-marquee-outer');
+  const marqueeTrack = document.querySelector('.works-marquee-track');
+
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+
+  marqueeOuter.addEventListener('mousedown', (e) => {
+    isDown = true;
+    marqueeTrack.classList.add('paused');
+    startX = e.pageX - marqueeOuter.offsetLeft;
+    scrollLeft = marqueeOuter.scrollLeft;
+    marqueeOuter.style.cursor = 'grabbing';
+  });
+
+  marqueeOuter.addEventListener('mouseleave', () => {
+    if (isDown) {
+      isDown = false;
+      marqueeTrack.classList.remove('paused');
+      marqueeOuter.style.cursor = 'grab';
+    }
+  });
+
+  marqueeOuter.addEventListener('mouseup', () => {
+    isDown = false;
+    marqueeTrack.classList.remove('paused');
+    marqueeOuter.style.cursor = 'grab';
+  });
+
+  marqueeOuter.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - marqueeOuter.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    marqueeOuter.scrollLeft = scrollLeft - walk;
+  });
+
+  // タッチ操作（スマホ対応）
+  marqueeOuter.addEventListener('touchstart', (e) => {
+    marqueeTrack.classList.add('paused');
+    startX = e.touches[0].pageX - marqueeOuter.offsetLeft;
+    scrollLeft = marqueeOuter.scrollLeft;
+  }, { passive: true });
+
+  marqueeOuter.addEventListener('touchend', () => {
+    marqueeTrack.classList.remove('paused');
+  });
+
+  marqueeOuter.addEventListener('touchmove', (e) => {
+    const x = e.touches[0].pageX - marqueeOuter.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    marqueeOuter.scrollLeft = scrollLeft - walk;
+  }, { passive: true });
+
+  // 自動スクロール（アニメーション終了後もループ）
+  marqueeOuter.addEventListener('scroll', () => {
+    const trackWidth = marqueeTrack.scrollWidth / 2;
+    if (marqueeOuter.scrollLeft >= trackWidth) {
+      marqueeOuter.scrollLeft = 0;
+    }
+  });
+
   // Intersection Observer for scroll-reveal
   const cards = document.querySelectorAll('.work-card, .about-card, .char-blob');
   const observer = new IntersectionObserver((entries) => {
